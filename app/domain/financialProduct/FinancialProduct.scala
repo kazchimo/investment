@@ -4,5 +4,5 @@ package domain.financialProduct
 trait FinancialProduct {
   // represent product identity
   val code: String
-  val quantity: Double
+  val amount: Double
 }
