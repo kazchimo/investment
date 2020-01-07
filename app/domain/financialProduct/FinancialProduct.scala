@@ -1,7 +1,7 @@
-package domain.product
+package domain.financialProduct
 
 /** financial product's marker trait */
-trait Product {
+trait FinancialProduct {
   // represent product identity
   val code: String
   val quantity: Double
