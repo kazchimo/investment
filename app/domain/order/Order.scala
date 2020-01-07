@@ -3,9 +3,9 @@ package domain.order
 import domain.financialProduct.FinancialProduct
 
 /** order marker trait */
-trait Order {
+case class Order(
+    from: FinancialProduct, // product to be sold
+    to: FinancialProduct    // product to be bought
+) {
   require(from.code != to.code)
-
-  val from: FinancialProduct // product to be sold
-  val to: FinancialProduct   // product to be bought
 }
