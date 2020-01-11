@@ -19,7 +19,7 @@ class CoinCheckExchange @Inject()(ws: WSClient) extends Exchange with HeaderName
     case v            => ZIO.fail(DomainError(s"unsupported order type: ${v.getClass.getSimpleName}"))
   }
 
-  object CoinCheckApi {
+  private object CoinCheckApi {
     private val RouteUrl     = "https://coincheck.com"
     private val OrderTypeKey = "order_type"
 
@@ -39,9 +39,9 @@ class CoinCheckExchange @Inject()(ws: WSClient) extends Exchange with HeaderName
           pair: String,
           createdAt: String
       ) {
-        def doubleAmount = this.amount.toDouble
-        def ts           = TS.fromString(this.createdAt)
-        def doubleRate   = this.rate.toDouble
+        def doubleAmount: Double = this.amount.toDouble
+        def ts: TS               = TS.fromString(this.createdAt)
+        def doubleRate: Double   = this.rate.toDouble
       }
       private object Response { implicit def responseReads: Reads[Response] = Json.reads[Response] }
       implicit def writes: Writes[MarketBuy] =
