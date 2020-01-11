@@ -1,7 +1,14 @@
 package domain.order
 
+import domain.TS.TS
+
 /** order marker trait */
 trait Order
-case class MarketBuy(amount: Double) extends Order
-case class MarketSell(amount: Double) extends Order
+trait UncontractedOrder extends Order
+trait ContractedOrder extends Order {
+  val createdAt: TS
+  val rate: Double
+}
 
+case class MarketBuy(amount: Double)                                        extends UncontractedOrder
+case class ContractedMarketBuy(amount: Double, createdAt: TS, rate: Double) extends ContractedOrder
