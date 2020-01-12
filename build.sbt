@@ -11,8 +11,9 @@ libraryDependencies ++= Seq(guice, ws)
 libraryDependencies += "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3" % Test
 
 libraryDependencies ++= Seq(
-  "dev.zio" %% "zio" % "1.0.0-RC17",
-  "joda-time" % "joda-time" % "2.10.5"
+  "dev.zio"        %% "zio"         % "1.0.0-RC17",
+  "joda-time"      % "joda-time"    % "2.10.5",
+  "net.codingwell" %% "scala-guice" % "4.2.6"
 )
 
 // Adds additional packages into Twirl

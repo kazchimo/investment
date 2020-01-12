@@ -1,6 +1,7 @@
 package domain.order
 
 import domain.TS.TS
+import play.api.libs.json.{Json, OWrites}
 
 /** order marker trait */
 trait Order
@@ -12,3 +13,6 @@ trait ContractedOrder extends Order {
 
 case class MarketBuy(amount: Double)                                        extends UncontractedOrder
 case class ContractedMarketBuy(amount: Double, createdAt: TS, rate: Double) extends ContractedOrder
+object ContractedMarketBuy {
+  implicit def writes: OWrites[ContractedMarketBuy] = Json.writes[ContractedMarketBuy]
+}

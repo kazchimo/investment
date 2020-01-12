@@ -1,23 +1,17 @@
 package infra.exchange
 
 import com.google.inject.Inject
-import domain.DomainError
 import domain.TS.TS
 import domain.exchange.Exchange
 import domain.financialProduct.{BitCoin, JPY}
-import domain.order.{ContractedMarketBuy, ContractedOrder, MarketBuy, UncontractedOrder}
+import domain.order.{ContractedMarketBuy, MarketBuy}
 import play.api.http.{ContentTypes, HeaderNames}
 import play.api.libs.json.{JsValue, Json, Reads, Writes}
 import play.api.libs.ws.WSClient
-import zio.{Task, ZIO}
+import zio.ZIO
 
 class CoinCheckExchange @Inject()(ws: WSClient) extends Exchange with HeaderNames with ContentTypes {
-  override val availableProducts: Set[Product] = Set(BitCoin, JPY)
-
-  override def submit(order: UncontractedOrder): Task[ContractedOrder] = order match {
-    case v: MarketBuy => CoinCheckApi.Orders.marketBuy(v)
-    case v            => ZIO.fail(DomainError(s"unsupported order type: ${v.getClass.getSimpleName}"))
-  }
+  def marketBuy(order: MarketBuy) = CoinCheckApi.Orders.marketBuy(order)
 
   private object CoinCheckApi {
     private val RouteUrl     = "https://coincheck.com"

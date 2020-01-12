@@ -1,12 +1,13 @@
 package application.useCase
 
-import domain.order.{ContractedOrder, MarketBuy}
+import domain.order.MarketBuy
 import infra.exchange.CoinCheckExchange
-import zio.Task
+import javax.inject.Inject
 
-class CoinCheckUseCase {
-  def marketBuy(exchange: CoinCheckExchange, amount: Double): Task[ContractedOrder] = {
+class CoinCheckUseCase @Inject()(exchange: CoinCheckExchange) {
+
+  def marketBuy(amount: Double)  = {
     val order = MarketBuy(amount)
-    exchange.submit(order)
+    exchange.marketBuy(order)
   }
 }
