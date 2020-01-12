@@ -17,7 +17,7 @@ class CoinCheckController @Inject()(cc: ControllerComponents, ws: WSClient, useC
 
   def marketBuy = Action.async(parse.json[MarketBuyRequest]) { implicit request =>
     runtime.unsafeRun(
-      useCase.marketBuy(request.body.amount).map(order => Ok(Json.toJson(order))).toFuture
+      useCase.marketBuy(request.body.amount).map(order => Ok(Json.toJson(order))).mapError(e => e).toFuture
     )
   }
 }
